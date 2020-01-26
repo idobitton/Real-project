@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="date">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="year" Type="int" />
+          <Property Name="month" Type="int" />
+          <Property Name="day" Type="int" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="employee_type_id" Type="int" Nullable="false" />
+          <Property Name="postal_code_id" Type="int" Nullable="false" />
+          <Property Name="deleted" Type="int" />
+        </EntityType>
+        <EntityType Name="employee_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="salaryperhour" Type="int" />
+        </EntityType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="pay_method" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_id" Type="int" />
+          <Property Name="date_id" Type="int" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="final_price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="discount" Type="int" />
+          <Property Name="f_price" Type="int" Nullable="false" />
+          <Property Name="products_id" Type="int" />
+          <Property Name="s_price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="notes" Type="nvarchar" MaxLength="50" />
+          <Property Name="final_price_id" Type="int" Nullable="false" />
+          <Property Name="identity" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="postal_code">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="house_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="details" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_employee_employee_type">
+          <End Role="employee_type" Type="Self.employee_type" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="employee_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_postal_code">
+          <End Role="postal_code" Type="Self.postal_code" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postal_code">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="postal_code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expense_date">
+          <End Role="date" Type="Self.date" Multiplicity="0..1" />
+          <End Role="expense" Type="Self.expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="date">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="date_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expense_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="expense" Type="Self.expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_final_price_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="final_price" Type="Self.final_price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="final_price">
+              <PropertyRef Name="products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_final_price">
+          <End Role="final_price" Type="Self.final_price" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="final_price">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="final_price_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="date" EntityType="Self.date" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_type" EntityType="Self.employee_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="final_price" EntityType="Self.final_price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postal_code" EntityType="Self.postal_code" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_employee_employee_type" Association="Self.FK_employee_employee_type">
+            <End Role="employee_type" EntitySet="employee_type" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_postal_code" Association="Self.FK_employee_postal_code">
+            <End Role="postal_code" EntitySet="postal_code" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expense_date" Association="Self.FK_expense_date">
+            <End Role="date" EntitySet="date" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expense_employee" Association="Self.FK_expense_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_final_price_products" Association="Self.FK_final_price_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="final_price" EntitySet="final_price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_final_price" Association="Self.FK_order_final_price">
+            <End Role="final_price" EntitySet="final_price" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="date" EntityType="Database1Model.date" />
+          <EntitySet Name="employee" EntityType="Database1Model.employee" />
+          <EntitySet Name="employee_type" EntityType="Database1Model.employee_type" />
+          <EntitySet Name="expense" EntityType="Database1Model.expense" />
+          <EntitySet Name="final_price" EntityType="Database1Model.final_price" />
+          <EntitySet Name="order" EntityType="Database1Model.order" />
+          <EntitySet Name="postal_code" EntityType="Database1Model.postal_code" />
+          <EntitySet Name="products" EntityType="Database1Model.products" />
+          <AssociationSet Name="FK_expense_date" Association="Database1Model.FK_expense_date">
+            <End Role="date" EntitySet="date" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_employee_type" Association="Database1Model.FK_employee_employee_type">
+            <End Role="employee_type" EntitySet="employee_type" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_postal_code" Association="Database1Model.FK_employee_postal_code">
+            <End Role="postal_code" EntitySet="postal_code" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expense_employee" Association="Database1Model.FK_expense_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="expense" EntitySet="expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_final_price_products" Association="Database1Model.FK_final_price_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="final_price" EntitySet="final_price" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_final_price" Association="Database1Model.FK_order_final_price">
+            <End Role="final_price" EntitySet="final_price" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="date">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="month" Type="Int32" />
+          <Property Name="day" Type="Int32" />
+          <NavigationProperty Name="expense" Relationship="Database1Model.FK_expense_date" FromRole="date" ToRole="expense" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_type_id" Type="Int32" Nullable="false" />
+          <Property Name="postal_code_id" Type="Int32" Nullable="false" />
+          <Property Name="deleted" Type="Int32" />
+          <NavigationProperty Name="employee_type" Relationship="Database1Model.FK_employee_employee_type" FromRole="employee" ToRole="employee_type" />
+          <NavigationProperty Name="postal_code" Relationship="Database1Model.FK_employee_postal_code" FromRole="employee" ToRole="postal_code" />
+          <NavigationProperty Name="expense" Relationship="Database1Model.FK_expense_employee" FromRole="employee" ToRole="expense" />
+        </EntityType>
+        <EntityType Name="employee_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salaryperhour" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="Database1Model.FK_employee_employee_type" FromRole="employee_type" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="pay_method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_id" Type="Int32" />
+          <Property Name="date_id" Type="Int32" />
+          <Property Name="employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="date" Relationship="Database1Model.FK_expense_date" FromRole="expense" ToRole="date" />
+          <NavigationProperty Name="employee" Relationship="Database1Model.FK_expense_employee" FromRole="expense" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="final_price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="discount" Type="Int32" />
+          <Property Name="f_price" Type="Int32" Nullable="false" />
+          <Property Name="products_id" Type="Int32" />
+          <Property Name="s_price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Database1Model.FK_final_price_products" FromRole="final_price" ToRole="products" />
+          <NavigationProperty Name="order" Relationship="Database1Model.FK_order_final_price" FromRole="final_price" ToRole="order" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="final_price_id" Type="Int32" Nullable="false" />
+          <Property Name="identity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="final_price" Relationship="Database1Model.FK_order_final_price" FromRole="order" ToRole="final_price" />
+        </EntityType>
+        <EntityType Name="postal_code">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="house_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employee" Relationship="Database1Model.FK_employee_postal_code" FromRole="postal_code" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="final_price" Relationship="Database1Model.FK_final_price_products" FromRole="products" ToRole="final_price" />
+        </EntityType>
+        <Association Name="FK_expense_date">
+          <End Type="Database1Model.date" Role="date" Multiplicity="0..1" />
+          <End Type="Database1Model.expense" Role="expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="date">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="date_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_employee_type">
+          <End Type="Database1Model.employee_type" Role="employee_type" Multiplicity="1" />
+          <End Type="Database1Model.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="employee_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_postal_code">
+          <End Type="Database1Model.postal_code" Role="postal_code" Multiplicity="1" />
+          <End Type="Database1Model.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postal_code">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="postal_code_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expense_employee">
+          <End Type="Database1Model.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="Database1Model.expense" Role="expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="expense">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_final_price_products">
+          <End Type="Database1Model.products" Role="products" Multiplicity="0..1" />
+          <End Type="Database1Model.final_price" Role="final_price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="final_price">
+              <PropertyRef Name="products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_final_price">
+          <End Type="Database1Model.final_price" Role="final_price" Multiplicity="1" />
+          <End Type="Database1Model.order" Role="order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="final_price">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="final_price_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities" >
+          <EntitySetMapping Name="date">
+            <EntityTypeMapping TypeName="Database1Model.date">
+              <MappingFragment StoreEntitySet="date">
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee">
+            <EntityTypeMapping TypeName="Database1Model.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="postal_code_id" ColumnName="postal_code_id" />
+                <ScalarProperty Name="employee_type_id" ColumnName="employee_type_id" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_number" ColumnName="id_number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_type">
+            <EntityTypeMapping TypeName="Database1Model.employee_type">
+              <MappingFragment StoreEntitySet="employee_type">
+                <ScalarProperty Name="salaryperhour" ColumnName="salaryperhour" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense">
+            <EntityTypeMapping TypeName="Database1Model.expense">
+              <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="date_id" ColumnName="date_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="pay_method" ColumnName="pay_method" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="final_price">
+            <EntityTypeMapping TypeName="Database1Model.final_price">
+              <MappingFragment StoreEntitySet="final_price">
+                <ScalarProperty Name="s_price" ColumnName="s_price" />
+                <ScalarProperty Name="products_id" ColumnName="products_id" />
+                <ScalarProperty Name="f_price" ColumnName="f_price" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order">
+            <EntityTypeMapping TypeName="Database1Model.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="identity" ColumnName="identity" />
+                <ScalarProperty Name="final_price_id" ColumnName="final_price_id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postal_code">
+            <EntityTypeMapping TypeName="Database1Model.postal_code">
+              <MappingFragment StoreEntitySet="postal_code">
+                <ScalarProperty Name="house_number" ColumnName="house_number" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="Database1Model.products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

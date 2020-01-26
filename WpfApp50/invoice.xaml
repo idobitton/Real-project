@@ -1,0 +1,44 @@
+﻿<Window x:Class="WpfApp50.invoice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp50"
+        mc:Ignorable="d"
+        Title="invoice" Height="400" Width="400" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="client_name_lbl" Content="Client name: " FontSize="15" FontWeight="Bold" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"/>
+        <Label x:Name="notes_lbl" Content="Notes: " FontSize="15" FontWeight="Bold" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="5"/>
+        <Label x:Name="worker_name_lbl" Content="Worker name: " FontSize="15" FontWeight="Bold" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"/>
+        <Label x:Name="payment_name_lbl" Content="The payment: " FontSize="15" FontWeight="Bold" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3"/>
+        <Label x:Name="gdbye_lbl" Content="Goodbye! Have a nice day!☺☺☺" FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="6"/>
+        <DataGrid x:Name="fprice_dtgrid1" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
+        <DataGrid x:Name="fprice_dtgrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="5"/>
+        <DataGrid x:Name="product_dtgrid" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="6"/>
+        <Button x:Name="credit_btn" Content="Credit" FontSize="15" FontWeight="Bold" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="2" Click="credit_btn_Click"/>
+        <Button x:Name="cash_btn" Content="Cash" FontSize="15" FontWeight="Bold" Grid.Column="5" Grid.Row="8" Grid.ColumnSpan="2" Click="cash_btn_Click"/>
+
+    </Grid>
+</Window>

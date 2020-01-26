@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="date">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="year" Type="int" />
+    <Property Name="month" Type="int" />
+    <Property Name="day" Type="int" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="employee_type_id" Type="int" Nullable="false" />
+    <Property Name="postal_code_id" Type="int" Nullable="false" />
+    <Property Name="deleted" Type="int" />
+  </EntityType>
+  <EntityType Name="employee_type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="salaryperhour" Type="int" />
+  </EntityType>
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="price" Type="int" Nullable="false" />
+    <Property Name="pay_method" Type="nvarchar" MaxLength="50" />
+    <Property Name="employee_id" Type="int" />
+    <Property Name="date_id" Type="int" />
+    <Property Name="employee_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="final_price">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="discount" Type="int" />
+    <Property Name="f_price" Type="int" Nullable="false" />
+    <Property Name="products_id" Type="int" />
+    <Property Name="s_price" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="notes" Type="nvarchar" MaxLength="50" />
+    <Property Name="final_price_id" Type="int" Nullable="false" />
+    <Property Name="identity" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="postal_code">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="street" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="house_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="price" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="details" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_employee_employee_type">
+    <End Role="employee_type" Type="Self.employee_type" Multiplicity="1" />
+    <End Role="employee" Type="Self.employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee_type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="employee_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employee_postal_code">
+    <End Role="postal_code" Type="Self.postal_code" Multiplicity="1" />
+    <End Role="employee" Type="Self.employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="postal_code">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="postal_code_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_expense_date">
+    <End Role="date" Type="Self.date" Multiplicity="0..1" />
+    <End Role="expense" Type="Self.expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="date">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="date_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_expense_employee">
+    <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+    <End Role="expense" Type="Self.expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_final_price_products">
+    <End Role="products" Type="Self.products" Multiplicity="0..1" />
+    <End Role="final_price" Type="Self.final_price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="final_price">
+        <PropertyRef Name="products_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_order_final_price">
+    <End Role="final_price" Type="Self.final_price" Multiplicity="1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="final_price">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="final_price_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="date" EntityType="Self.date" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee_type" EntityType="Self.employee_type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="final_price" EntityType="Self.final_price" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="postal_code" EntityType="Self.postal_code" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_employee_employee_type" Association="Self.FK_employee_employee_type">
+      <End Role="employee_type" EntitySet="employee_type" />
+      <End Role="employee" EntitySet="employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employee_postal_code" Association="Self.FK_employee_postal_code">
+      <End Role="postal_code" EntitySet="postal_code" />
+      <End Role="employee" EntitySet="employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_expense_date" Association="Self.FK_expense_date">
+      <End Role="date" EntitySet="date" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_expense_employee" Association="Self.FK_expense_employee">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_final_price_products" Association="Self.FK_final_price_products">
+      <End Role="products" EntitySet="products" />
+      <End Role="final_price" EntitySet="final_price" />
+    </AssociationSet>
+    <AssociationSet Name="FK_order_final_price" Association="Self.FK_order_final_price">
+      <End Role="final_price" EntitySet="final_price" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

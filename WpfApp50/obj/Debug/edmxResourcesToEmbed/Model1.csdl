@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="date" EntityType="Database1Model.date" />
+    <EntitySet Name="employee" EntityType="Database1Model.employee" />
+    <EntitySet Name="employee_type" EntityType="Database1Model.employee_type" />
+    <EntitySet Name="expense" EntityType="Database1Model.expense" />
+    <EntitySet Name="final_price" EntityType="Database1Model.final_price" />
+    <EntitySet Name="order" EntityType="Database1Model.order" />
+    <EntitySet Name="postal_code" EntityType="Database1Model.postal_code" />
+    <EntitySet Name="products" EntityType="Database1Model.products" />
+    <AssociationSet Name="FK_expense_date" Association="Database1Model.FK_expense_date">
+      <End Role="date" EntitySet="date" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employee_employee_type" Association="Database1Model.FK_employee_employee_type">
+      <End Role="employee_type" EntitySet="employee_type" />
+      <End Role="employee" EntitySet="employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employee_postal_code" Association="Database1Model.FK_employee_postal_code">
+      <End Role="postal_code" EntitySet="postal_code" />
+      <End Role="employee" EntitySet="employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_expense_employee" Association="Database1Model.FK_expense_employee">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="expense" EntitySet="expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_final_price_products" Association="Database1Model.FK_final_price_products">
+      <End Role="products" EntitySet="products" />
+      <End Role="final_price" EntitySet="final_price" />
+    </AssociationSet>
+    <AssociationSet Name="FK_order_final_price" Association="Database1Model.FK_order_final_price">
+      <End Role="final_price" EntitySet="final_price" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="date">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="month" Type="Int32" />
+    <Property Name="day" Type="Int32" />
+    <NavigationProperty Name="expense" Relationship="Database1Model.FK_expense_date" FromRole="date" ToRole="expense" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="employee_type_id" Type="Int32" Nullable="false" />
+    <Property Name="postal_code_id" Type="Int32" Nullable="false" />
+    <Property Name="deleted" Type="Int32" />
+    <NavigationProperty Name="employee_type" Relationship="Database1Model.FK_employee_employee_type" FromRole="employee" ToRole="employee_type" />
+    <NavigationProperty Name="postal_code" Relationship="Database1Model.FK_employee_postal_code" FromRole="employee" ToRole="postal_code" />
+    <NavigationProperty Name="expense" Relationship="Database1Model.FK_expense_employee" FromRole="employee" ToRole="expense" />
+  </EntityType>
+  <EntityType Name="employee_type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="salaryperhour" Type="Int32" />
+    <NavigationProperty Name="employee" Relationship="Database1Model.FK_employee_employee_type" FromRole="employee_type" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <Property Name="pay_method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="employee_id" Type="Int32" />
+    <Property Name="date_id" Type="Int32" />
+    <Property Name="employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="date" Relationship="Database1Model.FK_expense_date" FromRole="expense" ToRole="date" />
+    <NavigationProperty Name="employee" Relationship="Database1Model.FK_expense_employee" FromRole="expense" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="final_price">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="discount" Type="Int32" />
+    <Property Name="f_price" Type="Int32" Nullable="false" />
+    <Property Name="products_id" Type="Int32" />
+    <Property Name="s_price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Database1Model.FK_final_price_products" FromRole="final_price" ToRole="products" />
+    <NavigationProperty Name="order" Relationship="Database1Model.FK_order_final_price" FromRole="final_price" ToRole="order" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="final_price_id" Type="Int32" Nullable="false" />
+    <Property Name="identity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="final_price" Relationship="Database1Model.FK_order_final_price" FromRole="order" ToRole="final_price" />
+  </EntityType>
+  <EntityType Name="postal_code">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="house_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employee" Relationship="Database1Model.FK_employee_postal_code" FromRole="postal_code" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="final_price" Relationship="Database1Model.FK_final_price_products" FromRole="products" ToRole="final_price" />
+  </EntityType>
+  <Association Name="FK_expense_date">
+    <End Type="Database1Model.date" Role="date" Multiplicity="0..1" />
+    <End Type="Database1Model.expense" Role="expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="date">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="date_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employee_employee_type">
+    <End Type="Database1Model.employee_type" Role="employee_type" Multiplicity="1" />
+    <End Type="Database1Model.employee" Role="employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee_type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="employee_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employee_postal_code">
+    <End Type="Database1Model.postal_code" Role="postal_code" Multiplicity="1" />
+    <End Type="Database1Model.employee" Role="employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="postal_code">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="postal_code_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_expense_employee">
+    <End Type="Database1Model.employee" Role="employee" Multiplicity="0..1" />
+    <End Type="Database1Model.expense" Role="expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="expense">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_final_price_products">
+    <End Type="Database1Model.products" Role="products" Multiplicity="0..1" />
+    <End Type="Database1Model.final_price" Role="final_price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="final_price">
+        <PropertyRef Name="products_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_order_final_price">
+    <End Type="Database1Model.final_price" Role="final_price" Multiplicity="1" />
+    <End Type="Database1Model.order" Role="order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="final_price">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="final_price_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

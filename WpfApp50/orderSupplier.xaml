@@ -1,0 +1,138 @@
+﻿<Window x:Class="WpfApp50.orderSupplier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp50"
+        mc:Ignorable="d"
+        Title="orderSupplier" Height="1000" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="supplier_name_lbl"  Content="Supplier name:" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"/>
+        <TextBox x:Name="supplier_name_txb" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="1" TextWrapping="Wrap"/>
+        <Label x:Name="food_lbl"  Content="Food:" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <Label x:Name="beverage_lbl"  Content="Beverages:" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <ComboBox x:Name="food_cmbbx" FontSize="15" FontWeight="Bold" FontStyle="Italic" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="4" SelectionChanged="food_cmbbx_SelectionChanged">
+            <ComboBoxItem Content="Dough"/>
+            <ComboBoxItem Content="tomatoes paste"/>
+            <ComboBoxItem x:Name="oil" Content="oilve oil"/>
+            <ComboBoxItem Content="E_green olives"/>
+            <ComboBoxItem Content="E_black olives"/>
+            <ComboBoxItem Content="E_tuna"/>
+            <ComboBoxItem Content="E_corn"/>
+            <ComboBoxItem Content="E_feta"/>
+            <ComboBoxItem Content="E_batata"/>
+            <ComboBoxItem Content="E_onion"/>
+            <ComboBoxItem Content="E_mushrooms"/>
+            <ComboBoxItem Content="E_pineapple"/>
+            <ComboBoxItem Content="E_mozzarella"/>
+            <ComboBoxItem Content="Pasta penne"/>
+            <ComboBoxItem Content="Cream sauce"/>
+            <ComboBoxItem Content="Alfredo sauce"/>
+            <ComboBoxItem Content="Roze sauce"/>
+            <ComboBoxItem x:Name="m_q" Content="Mushroom Quiche"/>
+            <ComboBoxItem x:Name="b_q" Content="Batata Quiche"/>
+            <ComboBoxItem Content="S_cherry tomato"/>
+            <ComboBoxItem Content="S_tomato"/>
+            <ComboBoxItem Content="E_green pepper"/>
+            <ComboBoxItem x:Name="egg" Content="Egg"/>
+            <ComboBoxItem Content="Lemon"/>
+            <ComboBoxItem Content="S_carrot"/>
+            <ComboBoxItem Content="S_cucumber"/>
+            <ComboBoxItem Content="S_lettuce"/>
+            <ComboBoxItem Content="S_green bean"/>
+            <ComboBoxItem x:Name="o_r" Content="Onion rings"/>
+            <ComboBoxItem x:Name="p_g_b"  Content="Personal garlic bread"/>
+            <ComboBoxItem x:Name="f_g_b" Content="Family garlic bread"/>
+            <ComboBoxItem x:Name="z" Content="Ziva"/>
+        </ComboBox>
+        <ComboBox x:Name="beverage_cmbbx" FontSize="15" FontStyle="Italic" FontWeight="Bold" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="4" SelectionChanged="beverage_cmbbx_SelectionChanged">
+            <ComboBoxItem Content="Water+"/>
+            <ComboBoxItem Content="Water-"/>
+            <ComboBoxItem Content="B_Oranges"/>
+            <ComboBoxItem Content="B_Grapes"/>
+            <ComboBoxItem Content="B_Coke"/>
+            <ComboBoxItem Content="B_Diet Coke"/>
+            <ComboBoxItem Content="B_Zero Coke"/>
+            <ComboBoxItem Content="B_ Sprite"/>
+            <ComboBoxItem Content="B_Zero Sprite"/>
+            <ComboBoxItem Content="B_Fanta"/>
+            <ComboBoxItem Content="B_Fuze Tea"/>
+            <ComboBoxItem Content="Coke-"/>
+            <ComboBoxItem Content="Zero Coke-"/>
+            <ComboBoxItem Content="Diet Coke-"/>
+            <ComboBoxItem Content="Fanta-"/>
+            <ComboBoxItem Content="Oranges-"/>
+            <ComboBoxItem Content="Grapes-"/>
+            <ComboBoxItem Content="Sprite-"/>
+            <ComboBoxItem Content="Zero Sprite-"/>
+            <ComboBoxItem Content="Fuze Tea-"/>
+        </ComboBox>
+        <Button x:Name="dlt_btn"  Content="Select the product you want to delete" FontSize="10" FontWeight="Bold" FontStyle="Italic" Grid.Column="12" Grid.Row="1" Grid.ColumnSpan="4" Click="dlt_btn_Click"/>
+        <Button x:Name="fd_aply_btn"  Content="Apply(Food)" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="4" Click="fd_aply_btn_Click"/>
+        <Button x:Name="bvg_aply_btn"  Content="Apply(Drink)" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="7" Grid.Row="18" Grid.ColumnSpan="4" Click="bvg_aply_btn_Click"/>
+        <DataGrid x:Name="order_dtgrid" FontSize="20" FontWeight="ExtraBold" Grid.Row="2" Grid.Column="11" BorderBrush="red" Grid.ColumnSpan="7" Grid.RowSpan="14" SelectionChanged="order_dtgrid_SelectionChanged"/>
+        <Button x:Name="order_aply_btn"  Content="Apply(Order)" FontSize="20" FontWeight="ExtraBold" FontStyle="Italic" Grid.Column="14" Grid.Row="18" Grid.ColumnSpan="4" Click="order_aply_btn_Click"/>
+        <Label x:Name="qnty_lbl" Content="Quantity:" FontSize="20" FontWeight="ExtraBold" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="7"/>
+
+        <ComboBox x:Name="qnty_cmbbx" FontSize="15" FontWeight="Bold" FontStyle="Italic" Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="2">
+            <ComboBoxItem Content="1" IsSelected="True"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+        </ComboBox>
+        <Label Content="Notes:" FontSize="20" Grid.Row="6"  FontWeight="ExtraBold" Grid.Column="5" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="notes_txb" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="4" TextWrapping="Wrap"/>
+
+
+    </Grid>
+</Window>
